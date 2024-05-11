@@ -1,0 +1,12 @@
+Window
+  !text: tr('Spells')
+  size: 300 300
+
+  @onEnter: modules.game_spells.destroy()
+  @onEscape: modules.game_spells.destroy()
+  
+  Button
+    id: jumpButton
+    !text: tr('Jump')
+    width: 64
+    @onClick: toggle()

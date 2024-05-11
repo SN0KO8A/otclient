@@ -59,12 +59,17 @@ protected:
     void resize(const Size& size);
     void inputEvent(const InputEvent& event);
 
+    void fixedUpdateEvent();
+
 private:
     stdext::boolean<false> m_onInputEvent;
     stdext::boolean<false> m_mustRepaint;
     AdaptativeFrameCounter m_backgroundFrameCounter;
     AdaptativeFrameCounter m_foregroundFrameCounter;
     TexturePtr m_foreground;
+
+    ticks_t m_lastUpdateTime;
+    int m_updateTime;
 };
 
 extern GraphicalApplication g_app;

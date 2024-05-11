@@ -42,6 +42,8 @@ void GraphicalApplication::init(std::vector<std::string>& args)
 {
     Application::init(args);
 
+    m_updateTime = 75000;
+
     // setup platform window
     g_window.init();
     g_window.hide();
@@ -194,6 +196,8 @@ void GraphicalApplication::run()
                 g_lua.callGlobalField("g_app", "onFps", m_backgroundFrameCounter.getLastFps());
             m_foregroundFrameCounter.update();
 
+            fixedUpdateEvent();
+
             int sleepMicros = m_backgroundFrameCounter.getMaximumSleepMicros();
             if(sleepMicros >= AdaptativeFrameCounter::MINIMUM_MICROS_SLEEP)
                 stdext::microsleep(sleepMicros);
@@ -249,4 +253,16 @@ void GraphicalApplication::inputEvent(const InputEvent& event)
     m_onInputEvent = true;
     g_ui.inputEvent(event);
     m_onInputEvent = false;
+}
+
+void GraphicalApplication::fixedUpdateEvent()
+{
+    ticks_t current_tick = g_clock.micros();
+    ticks_t elapsed_time = current_tick - m_lastUpdateTime;
+
+    if (elapsed_time > m_updateTime)
+    {
+        g_lua.callGlobalField("g_app", "onFixedUpdate", m_backgroundFrameCounter.getLastFps());
+        m_lastUpdateTime = current_tick;
+    }
 }

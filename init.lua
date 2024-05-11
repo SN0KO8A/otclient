@@ -47,6 +47,7 @@ g_modules.ensureModuleLoaded("game_interface")
 
 -- mods 1000-9999
 g_modules.autoLoadModules(9999)
+g_modules.ensureModuleLoaded("test")
 
 local script = '/' .. g_app.getCompactName() .. 'rc.lua'
 

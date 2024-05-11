@@ -1,0 +1,9 @@
+Module
+  name: test
+  description: NPC trade interface
+  author: andrefaramir, baxnie
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ spells ]
+  @onLoad: init()
+  @onUnload: terminate()
